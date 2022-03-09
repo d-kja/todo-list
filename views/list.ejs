@@ -1,39 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
-
-        <link rel="stylesheet" href="./styles/styles.css" />
-    </head>
-    <body>
-        <nav class="box" id="heading">
-            <h1><%=day%></h1>
-        </nav>
-        <main class="box">
-            <% if(items.length != 0) { %>
-            <!--  -->
-            <% for(let i=0; i < items.length; i++) { %>
-            <div class="item">
-                <input type="checkbox" />
-                <p><%= items[i] %></p>
-            </div>
-            <% } %>
-            <!--  -->
-            <% } %>
-            <form action="/" method="post" class="item">
-                <input
-                    autocomplete="off"
-                    type="text"
-                    name="item"
-                    placeholder="New item"
-                />
-                <button type="submit" name="submit">+</button>
-            </form>
-        </main>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <script src="./index.js"></script>
-    </body>
-</html>
+<%- include('header') -%>
+<nav class="box" id="heading">
+    <h1><%=title%></h1>
+</nav>
+<main class="box">
+    <% if(items.length != 0) { %>
+    <!--  -->
+    <% for(let i=0; i < items.length; i++) { %>
+    <div class="item">
+        <input type="checkbox" />
+        <p><%= items[i] %></p>
+    </div>
+    <% } %>
+    <!--  -->
+    <% } %>
+    <form action="/" method="post" class="item">
+        <input
+            autocomplete="off"
+            type="text"
+            name="item"
+            placeholder="New item"
+        />
+        <button type="submit" name="list" value=<%=title%>>+</button>
+    </form>
+</main>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="./index.js"></script>
+<%- include('bottom') -%>

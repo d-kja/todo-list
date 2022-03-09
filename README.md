@@ -1,6 +1,6 @@
 # todo-list
 
--   A simple todo list using Express and EJS
+-   A simple todo list using Node and EJS
 
 ## Table
 
