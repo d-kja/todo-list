@@ -3,6 +3,7 @@ const bP = require("body-parser");
 const app = express();
 const date = require(__dirname + "/date.js");
 const mongoose = require("mongoose");
+const _ = require("lodash");
 
 const port = process.env.PORT || 3000;
 mongoose.connect("mongodb://localhost:27017/todolistDB");
@@ -21,7 +22,6 @@ const itemSchema = new mongoose.Schema({
 const itemWorkSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true,
     },
     item: [
         {
@@ -67,9 +67,10 @@ app.post("/create", (req, res) => {
 });
 
 app.get("/:name", (req, res) => {
-    const name = req.params.name;
+    const name = _.capitalize(req.params.name);
     let title, items;
     itemWorkModel.find({ name: name }, (e, r) => {
+        if (e) console.error(e);
         if (r.length === 0) {
             const item = new itemWorkModel({
                 name: name,
@@ -79,46 +80,46 @@ app.get("/:name", (req, res) => {
             item.save();
             res.redirect("/" + name);
         } else {
-            itemWorkModel.find({ name: name }, (e, resp) => {
-                if (e) console.error(e);
+            title = r[0].name;
+            items = r[0].item;
 
-                title = resp[0].name;
-                items = resp[0].item;
-
-                res.render("list", { title: title, items: items });
-            });
+            res.render("list", { title: title, items: items });
         }
     });
 });
 
 app.post("/", (req, res) => {
-    if (req.body.list === "Work Space" || req.body.list === "Work") {
-        if (req.body.item.length != 0) {
-            const obj = new itemWorkModel({
-                name: req.body.item,
-            });
+    let obj;
+    if (req.body.item.length != 0) {
+        obj = new itemModel({
+            name: req.body.item,
+        });
+    }
+    if (req.body.list != String(date.getDay())) {
+        itemWorkModel.findOne({ name: req.body.list }, (e, resp) => {
+            resp.item.push(obj);
+            resp.save();
 
-            obj.save();
-        }
-        res.redirect("/work");
+            res.redirect("/" + req.body.list);
+        });
     } else {
-        if (req.body.item.length != 0) {
-            const obj = new itemModel({
-                name: req.body.item,
-            });
-
-            obj.save();
-        }
+        obj.save();
         res.redirect("/");
     }
 });
 
 app.post("/del", (req, res) => {
-    if (req.body.list === "Work Space" || req.body.list === "Work") {
-        itemWorkModel.findByIdAndRemove(req.body.checkbox, (e) => {
-            if (e) console.error(e);
-        });
-        res.redirect("/work");
+    const itemID = req.body.checkbox;
+    if (req.body.list != String(date.getDay())) {
+        itemWorkModel.findOneAndUpdate(
+            { name: req.body.list },
+            { $pull: { item: { _id: itemID } } },
+            (e, resp) => {
+                if (!e) {
+                    res.redirect("/" + req.body.list);
+                }
+            }
+        );
     } else {
         itemModel.findByIdAndRemove(req.body.checkbox, (e) => {
             if (e) console.error(e);

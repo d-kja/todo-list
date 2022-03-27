@@ -8,14 +8,12 @@ a:hover,
 #menu {
     z-index: 10;
     position: absolute;
-    top: 25px;
+    top: 0;
     left: 0;
     width: 350px;
-    height: 95vh;
+    height: 100vh;
     background: #fff;
-    border: 2.5px solid #c6a7fc;
-    border-left: none;
-    border-radius: 0 8px 8px 0;
+    border-right: 2.5px solid #c6a7fc;
     transform: translateX(-350px);
     opacity: 0;
     transition: all 500ms;
@@ -39,14 +37,14 @@ a:hover,
     padding: 0;
 
     position: absolute;
-    top: 15px;
-
+    top: 10px;
+    right: 10px;
     width: 40px;
     height: 40px;
 
     border-radius: 100%;
-    background-color: #a683e3;
-    color: #fff;
+    background-color: transparent;
+    color: #a683e3;
     border: 2px solid transparent;
 
     transition: all 300ms;
@@ -54,12 +52,11 @@ a:hover,
 
 .menubtn:hover {
     border-radius: 35%;
-    background-color: #fff;
+    background-color: rgb(214, 214, 214);
     color: #9163e0;
 }
 
 .click {
-    background: #542a9e;
     border-color: #ba92ff;
 }
 
@@ -70,7 +67,7 @@ a:hover,
 }
 #main-btn form input {
     width: 250px;
-    height: 25px;
+    height: 35px;
     border: none;
     text-align: center;
     font-size: 18px;
@@ -104,7 +101,7 @@ a:hover,
     bottom: 20px;
     text-decoration: none;
     color: #fff;
-    background: #ba92ff;
+    background: #9163e0;
     border-radius: 8px;
     width: 75%;
     padding: 15px 25px;
@@ -113,3 +110,9 @@ a:hover,
 #main-btn a:hover {
     filter: brightness(85%);
 }
+
+/* @media (min-width: 1950px) {
+    .menubtn {
+        background: rgb(244, 244, 244);
+    }
+} */
