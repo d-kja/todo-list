@@ -17,8 +17,21 @@ const itemSchema = new mongoose.Schema({
         required: true,
     },
 });
+
+const itemWorkSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true,
+    },
+    item: [
+        {
+            type: itemSchema,
+            required: true,
+        },
+    ],
+});
 const itemModel = mongoose.model("Item", itemSchema);
-const itemWorkModel = mongoose.model("ItemWork", itemSchema);
+const itemWorkModel = mongoose.model("ItemWork", itemWorkSchema);
 
 const item1 = new itemModel({ name: "You can add whatever you want!" });
 const item2 = new itemModel({
@@ -45,16 +58,37 @@ app.get("/", (req, res) => {
     });
 });
 
-app.get("/:name", (req, res) => {
-    console.log(req.body.list);
-    const title = req.params.name;
-    itemWorkModel.find({}, (e, r) => {
-        res.render("list", { title: title, items: r });
-    });
-});
-
 app.get("/about", (req, res) => {
     res.render("about");
+});
+
+app.post("/create", (req, res) => {
+    res.redirect("/" + req.body.listName);
+});
+
+app.get("/:name", (req, res) => {
+    const name = req.params.name;
+    let title, items;
+    itemWorkModel.find({ name: name }, (e, r) => {
+        if (r.length === 0) {
+            const item = new itemWorkModel({
+                name: name,
+                item: [item1, item2],
+            });
+
+            item.save();
+            res.redirect("/" + name);
+        } else {
+            itemWorkModel.find({ name: name }, (e, resp) => {
+                if (e) console.error(e);
+
+                title = resp[0].name;
+                items = resp[0].item;
+
+                res.render("list", { title: title, items: items });
+            });
+        }
+    });
 });
 
 app.post("/", (req, res) => {

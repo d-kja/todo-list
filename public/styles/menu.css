@@ -1,0 +1,115 @@
+button:hover,
+a:hover,
+.btn-hover:hover {
+    cursor: pointer;
+}
+
+/* MENU */
+#menu {
+    z-index: 10;
+    position: absolute;
+    top: 25px;
+    left: 0;
+    width: 350px;
+    height: 95vh;
+    background: #fff;
+    border: 2.5px solid #c6a7fc;
+    border-left: none;
+    border-radius: 0 8px 8px 0;
+    transform: translateX(-350px);
+    opacity: 0;
+    transition: all 500ms;
+}
+#exit {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+    opacity: 15%;
+    visibility: hidden;
+}
+
+/* BTN */
+.menubtn {
+    display: grid;
+    place-items: center;
+    margin: 0;
+    padding: 0;
+
+    position: absolute;
+    top: 15px;
+
+    width: 40px;
+    height: 40px;
+
+    border-radius: 100%;
+    background-color: #a683e3;
+    color: #fff;
+    border: 2px solid transparent;
+
+    transition: all 300ms;
+}
+
+.menubtn:hover {
+    border-radius: 35%;
+    background-color: #fff;
+    color: #9163e0;
+}
+
+.click {
+    background: #542a9e;
+    border-color: #ba92ff;
+}
+
+/* MENU CONTENT */
+#main-btn form {
+    display: grid;
+    margin: 25px;
+}
+#main-btn form input {
+    width: 250px;
+    height: 25px;
+    border: none;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 200;
+}
+#main-btn form input::placeholder {
+    margin: 0 auto;
+}
+#main-btn form input[type="text"]:focus {
+    outline: none;
+    box-shadow: inset 0 -2.5px 0 0 #a683e3;
+}
+#main-btn form button {
+    width: 35px;
+    height: 35px;
+    border-radius: 100%;
+    border: none;
+    background: #a683e3;
+    color: #fff;
+    font-weight: 500;
+    font-size: 26px;
+}
+#main-btn form button:hover {
+    filter: brightness(85%);
+}
+#main-btn a {
+    font-size: 16px;
+    font-weight: 600;
+    position: absolute;
+    left: 15px;
+    bottom: 20px;
+    text-decoration: none;
+    color: #fff;
+    background: #ba92ff;
+    border-radius: 8px;
+    width: 75%;
+    padding: 15px 25px;
+    transition: all 200ms;
+}
+#main-btn a:hover {
+    filter: brightness(85%);
+}

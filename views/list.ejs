@@ -1,31 +1,63 @@
 <%- include('header') -%>
-<nav class="box" id="heading">
-    <h1><%=title%></h1>
-</nav>
-<main class="box">
-    <% if(items.length != 0) { %>
-    <!--  -->
-    <% items.forEach(item => { %>
-        <form action="/del" method="post">
-            <input type="hidden" name="list" value="<%=title%>">
-            <div class="item">
-                <input type="checkbox" onChange="this.form.submit()" name="checkbox" value="<%=item._id%>"/>
-                <p><%= item.name %></p>
-            </div>
-        </form>
-    <% }); %>
-    <!--  -->
-    <% } %>
-    <form action="/" method="post" class="item">
-        <input
-            autocomplete="off"
-            type="text"
-            name="item"
-            placeholder="New item"
-        />
-        <button type="submit" name="list" value="<%=title%>">+</button>
-    </form>
-</main>
+<div class="container">
+    <div id="main-btn">
+        <div id="btn-menu" class="btn-hover menubtn">
+            <span>
+                <i class="fa-solid fa-bars-staggered fa-xl"></i>
+            </span>
+        </div>
+        <div id="exit"></div>
+        <div id="menu">
+            <form action="/create" method="post" id="newList">
+                <div>
+                    <input
+                        placeholder="New list"
+                        type="text"
+                        name="listName"
+                        autocomplete="off"
+                        id="listName"
+                    />
+                    <button type="submit" name="listC">+</button>
+                </div>
+            </form>
+            <a href="/about"> About page </a>
+        </div>
+    </div>
+    <main>
+        <nav class="box" id="heading">
+            <h1><%=title%></h1>
+        </nav>
+        <main class="box">
+            <% if(items.length != 0) { %>
+            <!--  -->
+            <% items.forEach(item => { %>
+            <form action="/del" method="post">
+                <input type="hidden" name="list" value="<%=title%>" />
+                <div class="item">
+                    <input
+                        type="checkbox"
+                        onChange="this.form.submit()"
+                        name="checkbox"
+                        value="<%=item._id%>"
+                    />
+                    <p><%= item.name %></p>
+                </div>
+            </form>
+            <% }); %>
+            <!--  -->
+            <% } %>
+            <form action="/" method="post" class="item mainList">
+                <input
+                    autocomplete="off"
+                    type="text"
+                    name="item"
+                    placeholder="New item"
+                />
+                <button type="submit" name="list" value="<%=title%>">+</button>
+            </form>
+        </main>
+    </main>
+</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="./index.js"></script>
 <%- include('bottom') -%>
