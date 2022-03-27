@@ -94,18 +94,18 @@ app.post("/", (req, res) => {
         obj = new itemModel({
             name: req.body.item,
         });
-    } else {
-        res.redirect("/");
-    }
-    if (req.body.list != String(date.getDay())) {
-        itemWorkModel.findOne({ name: req.body.list }, (e, resp) => {
-            resp.item.push(obj);
-            resp.save();
+        if (req.body.list != String(date.getDay())) {
+            itemWorkModel.findOne({ name: req.body.list }, (e, resp) => {
+                resp.item.push(obj);
+                resp.save();
 
-            res.redirect("/" + req.body.list);
-        });
+                res.redirect("/" + req.body.list);
+            });
+        } else {
+            obj.save();
+            res.redirect("/");
+        }
     } else {
-        obj.save();
         res.redirect("/");
     }
 });
