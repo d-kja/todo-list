@@ -1,6 +1,7 @@
 # todo-list
 
--   A simple todo list using Node and EJS
+- A simple todo list using Node and MongoDB
+  - Packages: ejs, lodash, bodyparser, express and mongoose
 
 ## Table
 
